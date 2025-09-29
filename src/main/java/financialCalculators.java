@@ -74,7 +74,7 @@ public class financialCalculators {
 
         // prints monthly payment and total interest, over however many months
         System.out.printf("""
-                        Your expected monthly payments would be $%.2f, for %f months.
+                        Your expected monthly payments would be $%.2f, for %.0f months.
                         Your total interest paid would be $%.2f.
                         """,
                 monthPayment, loanLengthMonths, totalInterest);
@@ -116,18 +116,18 @@ public class financialCalculators {
         // prompts user for monthly payout, monthly interest, and annuity length in years
         System.out.println("What is the monthly payout of the annuity?");
         double monthlyPayout = input.nextDouble();
-        System.out.println("What is the expected monthly interest rate percentage?");
-        double monthlyInterestPercentage = input.nextDouble();
+        System.out.println("What is the expected interest rate percentage?");
+        double InterestPercentage = input.nextDouble();
         System.out.println("What is the length of the annuity in years?");
         double annuityLengthYears = input.nextDouble();
 
         // converts interest to decimal and annuity length to be in months
-        double monthlyInterest = monthlyInterestPercentage / 100;
+        double monthlyInterest = InterestPercentage / 100 / 12;
         double annuityLengthMonths = annuityLengthYears * 12;
 
         // calculates present value
         double presentValue = monthlyPayout *
-                ((1 - Math.pow(1 + monthlyInterest, annuityLengthMonths * -1)) / monthlyInterest);
+                ((1 - Math.pow(1 + monthlyInterest, -annuityLengthMonths)) / monthlyInterest);
 
         // print out present value for user
         System.out.printf("The present value of the annuity would be $%.2f.", presentValue);
