@@ -37,7 +37,7 @@ public class financialCalculators {
                         insurance or taxes), as well as how much interest you would pay over the life of the loan.
                         Interest calculator will determines the future value of a one-time deposit assuming compound
                         interest.
-                        Annuity calculator will determines the present value of an ordinary annuity.
+                        Annuity value calculator will determines the present value of an ordinary annuity.
                         To go back to main menu, rerun program.
                         """);
             default:
@@ -48,13 +48,26 @@ public class financialCalculators {
 
     public static void mortgageCalc(Scanner input) {
 
-        System.out.println("""
-                We will calculate how much a monthly payment for a loan would be (minus any insurance or taxes), as well
-                as how much interest you would pay over the life of the loan.
-                What will the principal of the mortgage be?
-                """);
+        System.out.println("What will the principal of the mortgage be?");
+        double principal = input.nextDouble();
+        System.out.println("What will the interest rate percentage be?");
+        double interestAnnual = input.nextDouble();
+        System.out.println("What will the loan length  be in years?");
+        int loanLengthYears = input.nextInt();
 
+        double interest = interestAnnual / 100 / 12;
+        int loanLengthMonths = loanLengthYears * 12;
 
+        double monthPayment = principal * ((interest * Math.pow((1 + interest), loanLengthMonths)) /
+                (Math.pow((1 + interest), loanLengthMonths) - 1));
+
+        double totalInterest = monthPayment * loanLengthMonths - principal;
+
+        System.out.printf("""
+                Your expected month payments would be $.2f, for %d months.
+                Your total interest paid would be $.2f.
+                """,
+                monthPayment, loanLengthMonths, totalInterest);
 
     }
 
